@@ -1,0 +1,73 @@
+import os, csv 
+
+#Import the poll data sheet
+poll_data = os.path.join("C:\\Users\\stieh\\OneDrive\\Desktop\\PythonStuff\\PyPoll")
+
+# Variables to calculate 
+total_votes = []
+candidate_vote_list = []
+total_can_votes = []
+list_cands = []
+votes = []
+
+candidate_votes = {}
+# candidate = "candidate_1" -> Not in dictionary, then add to it candidate_votes[candidate] = 1
+# candidate = "candidate_1" -> Is in dictionary, add one to vote count candidate_votes[candidate] += 1
+
+
+# Open the file 
+with open(poll_data) as csvfile:
+    csvreader = csv.reader(csvfile, delimiter = ",")
+
+    # Count number of votes cast
+    next(csvreader)
+    data = list(csvreader)
+    row_count = len(data)
+    print(data)
+
+# List of candidates who recieved votes
+for i in range(0, row_count):
+    
+    # Declare variable for candidates
+    candidate = data[2]
+    if candidate not in candidate_vote_list:
+        candidate_vote_list.append(candidate)
+    
+    candidate_list = len(candidate)
+
+    # Gather total votes per candidate 
+    votes.append(candidate)
+
+    if candidate not in list_cands:
+        list_cands.append(candidate)
+    
+    # Variable for candidate votes total 
+    candidate_votes = len(list_cands)
+
+# Total votes per candidate and their percentage
+votes = list()
+percentage = ()
+name = list_cands[j]
+
+ # Count votes
+for j in range(0, candidate_vote_list):
+   votes.append(votes.count(name))
+   vote_percent = votes[j] / row_count 
+   percentage.append(vote_percent)
+
+# Declare winner 
+winner = votes.index(max(votes))
+
+# Print the election results 
+print("Election Results")
+print("_______________")
+print(f"Total Votes: {row_count:,}")
+print("_______________")
+
+# Code for candidate name, votes, and percentage won 
+for k in range(0, candidate_votes):
+    print(f"{list_cands[k]}: {percentage[k]: .3%} ({votes[k]})")
+
+print("_______________")
+print(f"winner: {list_cands[winner]}")
+print("_______________")
