@@ -1,0 +1,65 @@
+# Module for reading the file
+import os
+import csv 
+
+# Import file 
+datafile = os.path.join("C:\\Users\\stieh\\OneDrive\\Desktop\\PythonStuff\\budget_data.csv")
+
+# Variables
+total_months = []
+total_profits = []
+profit_change = []
+
+# Open the csv file
+with open(datafile, newline = "", encoding="utf-8") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+
+    # Skip the first row of headers 
+    header = next(csvreader) 
+
+    #Loop through the columns in sheet
+    for row in csvreader:
+    
+        # Calculate otal number of months and print 
+        total_months.append(row[0])
+       # print(len(total_months))
+
+        # Add all the values in column profit/loss 
+        total_profits.append(int(row[1])) # [20.10]
+
+    
+        #print(total_profits)
+
+total_profit_calc = sum(total_profits)
+
+# Calcluate the changes in profit/loss between months 
+for i in range(len(total_profits)-1):
+
+    # Calculate the difference from month to month 
+    profit_change.append(total_profits[i + 1] - total_profits[i])
+
+# Find greatest and least increase of profits
+max_increase = max(profit_change)
+max_decrease = min(profit_change)
+
+# Match proper month and day with the greates increase and descrease value
+month_increase = profit_change.index(max(profit_change)) + 1
+month_decrease = profit_change.index(min(profit_change)) + 1
+
+# Print all the data 
+print("Financial Analysis")
+print("________________________________")
+print(f"Total Months: {(len(total_months))}")
+print(f"Total: {total_profit_calc}")
+print(f"Average Change: {sum(profit_change) / len(profit_change)}")
+print(f"Greatest Increase in Profits: {total_months[month_increase]} (${(str(max_increase))})")
+print(f"Greatest Decrease in Profits: {total_months[month_decrease]} (${(str(max_decrease))})")
+
+
+
+
+
+
+
+
+
